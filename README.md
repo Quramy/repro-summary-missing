@@ -1,27 +1,33 @@
-# ReproSummaryMissing
+This is a repository to reproduce `@angular/compiler-cli` ngsummary issue.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.5.4.
+```sh
+git checkout https://github.com/Quramy/repro-summary-missing.git
+yarn install
+yarn ngc
+```
 
-## Development server
+And `find out-tsc src/tsconfig.aot.json -name "*.ngsummary.json"` outputs the following:
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+```txt
+out-tsc/app/node_modules/@angular/common/common.ngsummary.js
+out-tsc/app/node_modules/@angular/core/core.ngsummary.js
+out-tsc/app/node_modules/@angular/platform-browser/platform-browser.ngsummary.js
+out-tsc/app/node_modules/@angular/platform-browser-dynamic/platform-browser-dynamic.ngsummary.js
+out-tsc/app/src/app/app.component.ngsummary.js
+out-tsc/app/src/app/app.module.ngsummary.js
+```
 
-## Code scaffolding
+The above output is strange because there is not `node_modules/@angular/common/http/http.ngsummary.js` in spite of `common.ngsummary.js` exists :thinking:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Build
+And with Angular 5.1.3, ngc emits the following `ngsummary.js`s:
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+```txt
+out-tsc/app/node_modules/@angular/common/common.ngsummary.js
+out-tsc/app/node_modules/@angular/common/http/http.ngsummary.js
+out-tsc/app/node_modules/@angular/core/core.ngsummary.js
+out-tsc/app/node_modules/@angular/platform-browser/platform-browser.ngsummary.js
+out-tsc/app/node_modules/@angular/platform-browser-dynamic/platform-browser-dynamic.ngsummary.js
+out-tsc/app/src/app/app.component.ngsummary.js
+out-tsc/app/src/app/app.module.ngsummary.js
+```
