@@ -6,7 +6,7 @@ yarn install
 yarn ngc
 ```
 
-And `find out-tsc src/tsconfig.aot.json -name "*.ngsummary.json"` outputs the following:
+And `find out-tsc src/tsconfig.aot.json -name "*.ngsummary.js"` outputs the following:
 
 ```txt
 out-tsc/app/node_modules/@angular/common/common.ngsummary.js
@@ -17,7 +17,7 @@ out-tsc/app/src/app/app.component.ngsummary.js
 out-tsc/app/src/app/app.module.ngsummary.js
 ```
 
-The above output is strange because there is not `node_modules/@angular/common/http/http.ngsummary.js` in spite of `common.ngsummary.js` exists :thinking:
+The above list is missing `node_modules/@angular/common/http/http.ngsummary.js` in spite of `common.ngsummary.js` exists :thinking:
 
 
 And with Angular 5.1.3, ngc emits the following `ngsummary.js`s:
